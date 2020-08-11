@@ -1,0 +1,7 @@
+{
+  "name": "Aventura",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
