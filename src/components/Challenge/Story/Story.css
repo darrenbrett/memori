@@ -1,0 +1,35 @@
+.message {
+  padding: 0 10px;
+}
+
+p {
+  padding-bottom: 10px;
+}
+
+.story-title {
+  text-align: center;
+}
+
+.attention {
+  text-align: center;
+  font-weight: bold;
+  font-style: italic;
+  padding: 20px;
+}
+
+.divider {
+  background-color: transparent;
+  border-bottom: 1px solid #ccc;
+}
+
+.timer {
+  /* padding: 0 5px;
+  border-radius: 5px; */
+  color: green;
+}
+
+.expired {
+  padding: 0 5px;
+  border-radius: 5px;
+  color: red;
+}
