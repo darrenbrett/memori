@@ -14,6 +14,8 @@ import {
   IonRadio,
   IonItemDivider,
   IonButton,
+  IonCard,
+  IonCardContent,
 } from "@ionic/react";
 import React from "react";
 
@@ -51,57 +53,61 @@ const Questions: React.FC = () => {
       </IonHeader>
 
       <IonContent>
-        <form>
-          <IonList>
-            {questions.map((q) => (
-              <IonRadioGroup value="biff" key={q.id}>
-                <IonListHeader>
-                  <IonLabel class="question">{q?.question}</IonLabel>
-                </IonListHeader>
-                <IonItem>
-                  <IonLabel>{q?.choices[0]}</IonLabel>
-                  <IonRadio
-                    slot="start"
-                    value={q?.choices[0]}
-                    onClick={() => getSelection()}
-                  ></IonRadio>
-                </IonItem>
-                <IonItem>
-                  <IonLabel>{q?.choices[1]}</IonLabel>
-                  <IonRadio
-                    slot="start"
-                    value={q?.choices[1]}
-                    onClick={() => getSelection()}
-                  ></IonRadio>
-                </IonItem>
-                <IonItem>
-                  <IonLabel>{q?.choices[2]}</IonLabel>
-                  <IonRadio
-                    slot="start"
-                    value={q?.choices[2]}
-                    onClick={() => getSelection()}
-                  ></IonRadio>
-                </IonItem>
-                <IonItem>
-                  <IonLabel>{q?.choices[3]}</IonLabel>
-                  <IonRadio
-                    slot="start"
-                    value={q?.choices[3]}
-                    onClick={() => getSelection()}
-                  ></IonRadio>
-                </IonItem>
-              </IonRadioGroup>
-            ))}
-          </IonList>
-          <IonItemDivider className="divider"></IonItemDivider>
-          <IonButton
-            expand="block"
-            type="submit"
-            onClick={() => submitAnswers()}
-          >
-            SUBMIT ANSWERS
-          </IonButton>
-        </form>
+        <IonCard>
+          <IonCardContent>
+            <form>
+              <IonList>
+                {questions.map((q) => (
+                  <IonRadioGroup value="biff" key={q.id}>
+                    <IonListHeader>
+                      <IonLabel class="question">{q?.question}</IonLabel>
+                    </IonListHeader>
+                    <IonItem>
+                      <IonLabel>{q?.choices[0]}</IonLabel>
+                      <IonRadio
+                        slot="start"
+                        value={q?.choices[0]}
+                        onClick={() => getSelection()}
+                      ></IonRadio>
+                    </IonItem>
+                    <IonItem>
+                      <IonLabel>{q?.choices[1]}</IonLabel>
+                      <IonRadio
+                        slot="start"
+                        value={q?.choices[1]}
+                        onClick={() => getSelection()}
+                      ></IonRadio>
+                    </IonItem>
+                    <IonItem>
+                      <IonLabel>{q?.choices[2]}</IonLabel>
+                      <IonRadio
+                        slot="start"
+                        value={q?.choices[2]}
+                        onClick={() => getSelection()}
+                      ></IonRadio>
+                    </IonItem>
+                    <IonItem>
+                      <IonLabel>{q?.choices[3]}</IonLabel>
+                      <IonRadio
+                        slot="start"
+                        value={q?.choices[3]}
+                        onClick={() => getSelection()}
+                      ></IonRadio>
+                    </IonItem>
+                  </IonRadioGroup>
+                ))}
+              </IonList>
+              <IonItemDivider className="divider"></IonItemDivider>
+              <IonButton
+                expand="block"
+                type="submit"
+                onClick={() => submitAnswers()}
+              >
+                SUBMIT ANSWERS
+              </IonButton>
+            </form>
+          </IonCardContent>
+        </IonCard>
       </IonContent>
     </IonPage>
   );
