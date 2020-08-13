@@ -1,10 +1,10 @@
 import React, { useState, useEffect, Fragment } from "react";
 import "./Countdown.css";
 
-const Countdown: React.FC<any> = (props) => {
+const Countdown: React.FC<Timer> = (props) => {
   const [over, setOver] = useState(false);
   const [time, setTime] = useState({
-    minutes: props.minutes || 5,
+    minutes: props.minutes || 1,
     seconds: props.seconds || 0,
   });
 
@@ -47,3 +47,8 @@ const Countdown: React.FC<any> = (props) => {
 };
 
 export default Countdown;
+
+export interface Timer {
+  minutes?: number;
+  seconds?: number;
+}

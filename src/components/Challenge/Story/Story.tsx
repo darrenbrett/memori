@@ -17,7 +17,7 @@ import React from "react";
 import "./Story.css";
 import Countdown from "./../Countdown/Countdown";
 
-const Story: React.FC<any> = () => {
+const Story: React.FC = () => {
   const duration = {
     minutes: 2,
     seconds: 0,
