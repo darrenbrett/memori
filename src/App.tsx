@@ -1,14 +1,8 @@
 import Menu from "./components/Menu";
 import React from "react";
-import {
-  IonApp,
-  IonRouterOutlet,
-  IonSplitPane,
-  IonAlert,
-  IonRouterLink,
-} from "@ionic/react";
+import { IonApp, IonRouterOutlet, IonSplitPane } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { Redirect, Route, Link } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -30,47 +24,31 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import Home from "./components/Home/Home";
 import Settings from "./components/Settings/Settings";
-import History from "./components/History/History";
+import HistoryComp from "./components/History/History";
 import Profile from "./components/Profile/Profile";
 import Challenge from "./components/Challenge/Challenge";
 import Story from "./components/Challenge/Story/Story";
 import Questions from "./components/Challenge/Questions/Questions";
 
-const App: React.FC<any> = (props) => {
-  let errFound = true;
+const App: React.FC = () => {
   return (
-    <React.Fragment>
-      <IonAlert
-        isOpen={errFound}
-        message={"This is an alert message."}
-        buttons={[
-          {
-            text: "OK",
-            handler: () => {
-              console.log("Dismissed!");
-              props.history.push("./questions");
-            },
-          },
-        ]}
-      ></IonAlert>
-      <IonApp>
-        <IonReactRouter>
-          <IonSplitPane contentId="main">
-            <IonRouterOutlet id="main">
-              <Route path="/home" component={Home} exact={true} />
-              <Route path="/profile" component={Profile} exact={true} />
-              <Route path="/history" component={History} exact={true} />
-              <Route path="/settings" component={Settings} exact={true} />
-              <Route path="/challenge" component={Challenge} exact={true} />
-              <Route path="/story" component={Story} exact={true} />
-              <Route path="/questions" component={Questions} exact={true} />
-              <Route exact path="/" render={() => <Redirect to="/home" />} />
-            </IonRouterOutlet>
-            <Menu />
-          </IonSplitPane>
-        </IonReactRouter>
-      </IonApp>
-    </React.Fragment>
+    <IonApp>
+      <IonReactRouter>
+        <IonSplitPane contentId="main">
+          <IonRouterOutlet id="main">
+            <Route path="/home" component={Home} exact={true} />
+            <Route path="/profile" component={Profile} exact={true} />
+            <Route path="/history" component={HistoryComp} exact={true} />
+            <Route path="/settings" component={Settings} exact={true} />
+            <Route path="/challenge" component={Challenge} exact={true} />
+            <Route path="/story" component={Story} exact={true} />
+            <Route path="/questions" component={Questions} exact={true} />
+            <Route exact path="/" render={() => <Redirect to="/home" />} />
+          </IonRouterOutlet>
+          <Menu />
+        </IonSplitPane>
+      </IonReactRouter>
+    </IonApp>
   );
 };
 

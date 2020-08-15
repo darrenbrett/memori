@@ -1,6 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
 import "./Countdown.css";
-import Alert from "./../../UI/Alert/Alert";
 import { IonAlert } from "@ionic/react";
 
 const Countdown: React.FC<Timer> = (props) => {
@@ -9,13 +8,17 @@ const Countdown: React.FC<Timer> = (props) => {
     minutes: props.minutes || 1,
     seconds: props.seconds || 0,
   });
+  const { history } = props;
 
-  const errFound = true;
+  let expired: boolean = false;
+
+  if (time.minutes === 0 && time.seconds === 0) {
+    expired = true;
+  }
 
   const tick = () => {
     if (over) {
       console.log("Time expired!");
-      return <IonAlert isOpen={errFound}></IonAlert>;
     }
     if (time.minutes === 0 && time.seconds === 0) setOver(true);
     else if (time.minutes === 0 && time.seconds === 0)
@@ -42,6 +45,19 @@ const Countdown: React.FC<Timer> = (props) => {
 
   return (
     <Fragment>
+      <IonAlert
+        isOpen={expired}
+        message={"Time has expired!"}
+        onDidDismiss={() => history.push("/questions")}
+        buttons={[
+          {
+            text: "OK",
+            handler: () => {
+              console.log("Dismissed!");
+            },
+          },
+        ]}
+      ></IonAlert>
       <span className="timer">
         {!over &&
           ` ${time.minutes
