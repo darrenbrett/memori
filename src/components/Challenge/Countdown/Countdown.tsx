@@ -1,14 +1,16 @@
 import React, { useState, useEffect, Fragment } from "react";
 import "./Countdown.css";
 import { IonAlert } from "@ionic/react";
+import { useHistory } from "react-router";
 
 const Countdown: React.FC<Timer> = (props) => {
   const [over, setOver] = useState(false);
   const [time, setTime] = useState({
-    minutes: props.minutes || 1,
-    seconds: props.seconds || 0,
+    minutes: props?.minutes || 1,
+    seconds: props?.seconds || 0,
   });
-  const { history } = props;
+
+  const history = useHistory();
 
   let expired: boolean = false;
 
@@ -49,14 +51,7 @@ const Countdown: React.FC<Timer> = (props) => {
         isOpen={expired}
         message={"Time has expired!"}
         onDidDismiss={() => history.push("/questions")}
-        buttons={[
-          {
-            text: "OK",
-            handler: () => {
-              console.log("Dismissed!");
-            },
-          },
-        ]}
+        buttons={["OK"]}
       ></IonAlert>
       <span className="timer">
         {!over &&
@@ -74,6 +69,4 @@ export default Countdown;
 export interface Timer {
   minutes?: number;
   seconds?: number;
-  history?: any;
-  expired?: boolean;
 }

@@ -19,7 +19,7 @@ import Countdown from "./../Countdown/Countdown";
 
 const Story: React.FC = () => {
   const duration = {
-    minutes: 1,
+    minutes: 2,
     seconds: 0,
   };
   let titleWithTimer;
