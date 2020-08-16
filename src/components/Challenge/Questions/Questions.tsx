@@ -51,61 +51,36 @@ const Questions: React.FC = () => {
           <IonTitle>Questions</IonTitle>
         </IonToolbar>
       </IonHeader>
-
       <IonContent>
         <IonCard>
           <IonCardContent>
-            <form>
-              <IonList>
-                {questions.map((q) => (
-                  <IonRadioGroup value="biff" key={q.id}>
-                    <IonListHeader>
-                      <IonLabel class="question">{q?.question}</IonLabel>
-                    </IonListHeader>
-                    <IonItem>
-                      <IonLabel>{q?.choices[0]}</IonLabel>
+            <IonList>
+              {questions.map((q) => (
+                <IonRadioGroup value="biff" key={q.id}>
+                  <IonListHeader>
+                    <IonLabel class="question">{q?.question}</IonLabel>
+                  </IonListHeader>
+                  {q.choices.map((choice, index) => (
+                    <IonItem key={choice[index]}>
+                      <IonLabel>{choice}</IonLabel>
                       <IonRadio
                         slot="start"
-                        value={q?.choices[0]}
+                        value={choice}
                         onClick={() => getSelection()}
                       ></IonRadio>
                     </IonItem>
-                    <IonItem>
-                      <IonLabel>{q?.choices[1]}</IonLabel>
-                      <IonRadio
-                        slot="start"
-                        value={q?.choices[1]}
-                        onClick={() => getSelection()}
-                      ></IonRadio>
-                    </IonItem>
-                    <IonItem>
-                      <IonLabel>{q?.choices[2]}</IonLabel>
-                      <IonRadio
-                        slot="start"
-                        value={q?.choices[2]}
-                        onClick={() => getSelection()}
-                      ></IonRadio>
-                    </IonItem>
-                    <IonItem>
-                      <IonLabel>{q?.choices[3]}</IonLabel>
-                      <IonRadio
-                        slot="start"
-                        value={q?.choices[3]}
-                        onClick={() => getSelection()}
-                      ></IonRadio>
-                    </IonItem>
-                  </IonRadioGroup>
-                ))}
-              </IonList>
-              <IonItemDivider className="divider"></IonItemDivider>
-              <IonButton
-                expand="block"
-                type="submit"
-                onClick={() => submitAnswers()}
-              >
-                SUBMIT ANSWERS
-              </IonButton>
-            </form>
+                  ))}
+                </IonRadioGroup>
+              ))}
+            </IonList>
+            <IonItemDivider className="divider"></IonItemDivider>
+            <IonButton
+              expand="block"
+              type="submit"
+              onClick={() => submitAnswers()}
+            >
+              SUBMIT ANSWERS
+            </IonButton>
           </IonCardContent>
         </IonCard>
       </IonContent>
