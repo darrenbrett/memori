@@ -3,6 +3,7 @@ import "./Countdown.css";
 import { IonAlert } from "@ionic/react";
 import { useHistory } from "react-router";
 
+// const Countdown = React.memo<Timer>((props) => {
 const Countdown: React.FC<Timer> = (props) => {
   const [over, setOver] = useState(false);
   const [time, setTime] = useState({
@@ -14,14 +15,9 @@ const Countdown: React.FC<Timer> = (props) => {
 
   let expired: boolean = false;
 
-  if (time.minutes === 0 && time.seconds === 0) {
-    expired = true;
-  }
+  if (time.minutes === 0 && time.seconds === 0) expired = true;
 
   const tick = () => {
-    if (over) {
-      console.log("Time expired!");
-    }
     if (time.minutes === 0 && time.seconds === 0) setOver(true);
     else if (time.minutes === 0 && time.seconds === 0)
       setTime({
@@ -45,14 +41,18 @@ const Countdown: React.FC<Timer> = (props) => {
     return () => clearInterval(timerID);
   });
 
+  const alertStatus = (
+    <IonAlert
+      isOpen={expired}
+      message={"Time has expired!"}
+      onDidDismiss={() => history.push("/questions")}
+      buttons={["OK"]}
+    ></IonAlert>
+  );
+
   return (
     <Fragment>
-      <IonAlert
-        isOpen={expired}
-        message={"Time has expired!"}
-        onDidDismiss={() => history.push("/questions")}
-        buttons={["OK"]}
-      ></IonAlert>
+      {alertStatus}
       <span className="timer">
         {!over &&
           ` ${time.minutes

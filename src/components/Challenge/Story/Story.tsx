@@ -18,16 +18,12 @@ import "./Story.css";
 import Countdown from "./../Countdown/Countdown";
 
 const Story: React.FC = () => {
-  const duration = {
-    minutes: 2,
-    seconds: 0,
-  };
   let titleWithTimer;
   titleWithTimer = (
     <IonTitle>
       Time Remaining:
       <span>
-        <Countdown minutes={duration.minutes} />
+        <Countdown minutes={1} />
       </span>
     </IonTitle>
   );
