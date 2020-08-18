@@ -45,17 +45,14 @@ const Questions: React.FC = () => {
   ];
 
   let answers: Answers[] = [];
-  let finalAnswers: Answers[] = [];
 
   const getSelection = (
     questionIndex: number,
     optionIndex: number,
     choice: string
   ) => {
-    let answersArr: Answers[] = [];
     if (answers.length < 1) {
       answers.push({ questionIndex, optionIndex, choice });
-      answersArr = [...answers];
     }
     for (const i of answers) {
       if (i.questionIndex === questionIndex) {
@@ -64,13 +61,9 @@ const Questions: React.FC = () => {
         );
         filteredArr.push({ questionIndex, optionIndex, choice });
         answers = [...filteredArr];
-        answersArr = [...answers];
       } else if (i.questionIndex !== questionIndex) {
         answers.push({ questionIndex, optionIndex, choice });
-        answersArr = [...answers];
       }
-      finalAnswers = [...answersArr];
-      console.log("finalAnswers: ", finalAnswers);
     }
   };
 
