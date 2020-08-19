@@ -8,8 +8,9 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import React from "react";
+import "./UserHistory.css";
 
-const History: React.FC = () => {
+const UserHistory: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
@@ -32,4 +33,4 @@ const History: React.FC = () => {
   );
 };
 
-export default History;
+export default UserHistory;

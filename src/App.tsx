@@ -23,12 +23,24 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import Home from "./components/Home/Home";
+import Auth from "./components/Auth/Auth";
 import Settings from "./components/Settings/Settings";
-import HistoryComp from "./components/History/History";
+import UserHistory from "./components/UserHistory/UserHistory";
 import Profile from "./components/Profile/Profile";
 import Challenge from "./components/Challenge/Challenge";
 import Story from "./components/Challenge/Story/Story";
 import Questions from "./components/Challenge/Questions/Questions";
+
+// const Home = lazy(() => import("./components/Home/Home"));
+// const Auth = lazy(() => import("./components/Auth/Auth"));
+// const Settings = lazy(() => import("./components/Settings/Settings"));
+// const HistoryComp = lazy(() => import("./components/History/History"));
+// const Profile = lazy(() => import("./components/Profile/Profile"));
+// const Challenge = lazy(() => import("./components/Challenge/Challenge"));
+// const Story = lazy(() => import("./components/Challenge/Story/Story"));
+// const Questions = lazy(() =>
+//   import("./components/Challenge/Questions/Questions")
+// );
 
 const App: React.FC = () => {
   return (
@@ -37,8 +49,9 @@ const App: React.FC = () => {
         <IonSplitPane contentId="main">
           <IonRouterOutlet id="main">
             <Route path="/home" component={Home} exact={true} />
+            <Route path="/auth" component={Auth} exact={true} />
             <Route path="/profile" component={Profile} exact={true} />
-            <Route path="/history" component={HistoryComp} exact={true} />
+            <Route path="/history" component={UserHistory} exact={true} />
             <Route path="/settings" component={Settings} exact={true} />
             <Route path="/challenge" component={Challenge} exact={true} />
             <Route path="/story" component={Story} exact={true} />

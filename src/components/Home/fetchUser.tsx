@@ -1,3 +1,5 @@
+import { APIConfig } from "./../../environments/environment.prod";
+
 export const fetchProfileData = () => {
   let userPromise = fetchUser();
   return {
@@ -32,12 +34,10 @@ const wrapPromise = (promise: any) => {
 };
 
 const fetchUser = () => {
-  console.log("fetch user...");
   return new Promise((resolve) => {
     const username = "smithy@s.com";
-    const apiUrl = `http://localhost:3000/api`;
     const req = `/users/stats/${username}`;
-    fetch(`${apiUrl}${req}`)
+    fetch(`${APIConfig.url}${req}`)
       .then((res) => res.json())
       .then((data) => {
         console.log("data: ", data);

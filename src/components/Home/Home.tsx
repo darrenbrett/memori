@@ -27,7 +27,6 @@ const Home: React.FC = () => {
   const lowScoreMessage = () => {
     let lowScoreMessage = null;
     if (user.roundsCompleted > 0 && user.lastScore < 6) {
-      console.log("low score warning: ", user.lastScore);
       lowScoreMessage = (
         <div>
           <IonCard>
@@ -55,7 +54,7 @@ const Home: React.FC = () => {
           <IonCol>Rounds Completed: {user?.roundsCompleted}</IonCol>
         </IonRow>
         <IonRow>
-          <IonCol> Player Level: {user?.level || 66} </IonCol>
+          <IonCol> Player Level: {user?.level} </IonCol>
         </IonRow>
         <IonRow>
           <IonCol>Latest Round Score: {user?.lastScore}/10</IonCol>
@@ -72,21 +71,21 @@ const Home: React.FC = () => {
   };
 
   return (
-    <Suspense fallback={<h1>Loading profile...</h1>}>
-      <IonPage>
-        <IonHeader className="header">
-          <IonToolbar>
-            <IonButtons slot="start">
-              <IonMenuButton />
-            </IonButtons>
-            <IonTitle>Home</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <IonContent>
+    <IonPage>
+      <IonHeader className="header">
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
+          <IonTitle>Home</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent>
+        <Suspense fallback={<IonTitle>Loading profile...</IonTitle>}>
           <ProfileDetails />
-        </IonContent>
-      </IonPage>
-    </Suspense>
+        </Suspense>
+      </IonContent>
+    </IonPage>
   );
 };
 
