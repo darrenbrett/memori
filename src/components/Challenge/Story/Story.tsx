@@ -18,7 +18,7 @@ import "./Story.css";
 import Countdown from "./../Countdown/Countdown";
 
 const Story: React.FC = () => {
-  let timed: boolean = true;
+  let timed: boolean = false;
 
   let titleWithTimer = <IonTitle>Short Story</IonTitle>;
 

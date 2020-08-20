@@ -30,6 +30,7 @@ import Profile from "./components/Profile/Profile";
 import Challenge from "./components/Challenge/Challenge";
 import Story from "./components/Challenge/Story/Story";
 import Questions from "./components/Challenge/Questions/Questions";
+import Score from "./components/Challenge/Score/Score";
 
 // const Home = lazy(() => import("./components/Home/Home"));
 // const Auth = lazy(() => import("./components/Auth/Auth"));
@@ -56,6 +57,7 @@ const App: React.FC = () => {
             <Route path="/challenge" component={Challenge} exact={true} />
             <Route path="/story" component={Story} exact={true} />
             <Route path="/questions" component={Questions} exact={true} />
+            <Route path="/score" component={Score} exact={true} />
             <Route exact path="/" render={() => <Redirect to="/home" />} />
           </IonRouterOutlet>
           <Menu />

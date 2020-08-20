@@ -18,9 +18,12 @@ import {
   IonCardContent,
 } from "@ionic/react";
 import React from "react";
+import axios from "axios";
 import { useHistory } from "react-router";
+import { APIConfig } from "./../../../environments/environment.prod";
 
 const Questions: React.FC = () => {
+  let score = 0;
   const history = useHistory();
 
   let questions = [
@@ -68,7 +71,6 @@ const Questions: React.FC = () => {
   };
 
   const getScore = () => {
-    let score = 0;
     for (const u of answers) {
       for (const q of questions) {
         if (u.questionIndex + 1 === q.id && u.choice === q.answer) {
@@ -76,26 +78,33 @@ const Questions: React.FC = () => {
         }
       }
     }
-    console.log("score: ", score);
     return score;
   };
 
-  const submitAnswers = () => {
-    console.log("submitAnsers() is firing...");
-    // answersSubmitted = true;
-    // form.reset();
+  const submitAnswers = async () => {
     getScore();
-    showModal();
-    updateUser();
-    history.push("/home");
+    await updateUser();
+    history.push("/score", score);
   };
 
-  const showModal = () => {
-    console.log("Showing modal...");
-  };
-
-  const updateUser = () => {
+  const updateUser = async (
+    username = "smithy@s.com",
+    lastCompletedSet = "1",
+    lastCompletedTopic = "starter",
+    pointsToAdd = score
+  ) => {
+    let result: object;
+    const req = `users/update-user-stats`;
     console.log("Updating user...");
+    const body = {
+      username,
+      lastCompletedSet,
+      lastCompletedTopic,
+      pointsToAdd,
+    };
+    console.log("body sending: ", body);
+    result = await axios.post(`${APIConfig.url}/${req}`, body);
+    console.log("result: ", result);
   };
 
   return (
@@ -134,7 +143,11 @@ const Questions: React.FC = () => {
                 ))}
               </IonList>
               <IonItemDivider className="divider"></IonItemDivider>
-              <IonButton expand="block" onClick={submitAnswers}>
+              <IonButton
+                expand="block"
+                onClick={submitAnswers}
+                routerLink="/score"
+              >
                 SUBMIT ANSWERS
               </IonButton>
             </form>
