@@ -14,10 +14,11 @@ import {
 import React from "react";
 import "./Score.css";
 import { createBrowserHistory } from "history";
-export const history = createBrowserHistory({ forceRefresh: true });
 
 const Score: React.FC = (props: any) => {
   const score = props.location.state;
+  console.log("score in score: ", score);
+  const history = createBrowserHistory({ forceRefresh: true });
 
   const returnHome = () => {
     history.push("/home");

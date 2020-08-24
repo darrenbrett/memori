@@ -3,7 +3,6 @@ import "./Countdown.css";
 import { IonAlert } from "@ionic/react";
 import { useHistory } from "react-router";
 
-// const Countdown = React.memo<Timer>((props) => {
 const Countdown: React.FC<Timer> = (props) => {
   const [over, setOver] = useState(false);
   const [time, setTime] = useState({

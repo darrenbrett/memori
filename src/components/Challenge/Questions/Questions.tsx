@@ -17,67 +17,60 @@ import {
   IonCard,
   IonCardContent,
 } from "@ionic/react";
-import React from "react";
+import React, { useState } from "react";
+import "@ionic/react/css/core.css";
 import axios from "axios";
 import { useHistory } from "react-router";
-import { APIConfig } from "./../../../environments/environment.prod";
+import { APIConfig } from "./../../../environments/environment";
 
-const Questions: React.FC = () => {
+const questions = [
+  {
+    id: 1,
+    question: "What is the closest planet to the sun?",
+    choices: ["Mercury", "Mars", "Venus", "Earth"],
+    answer: "Mercury",
+    choice: "",
+  },
+  {
+    id: 2,
+    question: "What is known as 'the Red Planet'?",
+    choices: ["Jupiter", "Mars", "Venus", "Saturn"],
+    answer: "Mars",
+    choice: "",
+  },
+  {
+    id: 3,
+    question: "What planet has the 'Giant Red Spot'?",
+    choices: ["Neptune", "Venus", "Jupiter", "Mars"],
+    answer: "Jupiter",
+    choice: "",
+  },
+];
+const Questions = () => {
+  const [locQuestions, setQuestions] = useState(questions);
+  const [answers, setAnswers] = useState<string[]>([]);
+
   let score = 0;
+
   const history = useHistory();
 
-  let questions = [
-    {
-      id: 1,
-      question: "What is the closest planet to the sun?",
-      choices: ["Mercury", "Mars", "Venus", "Earth"],
-      answer: "Mercury",
-    },
-    {
-      id: 2,
-      question: "What is known as 'the Red Planet'?",
-      choices: ["Jupiter", "Mars", "Venus", "Saturn"],
-      answer: "Mars",
-    },
-    {
-      id: 3,
-      question: "What planet has the 'Giant Red Spot'?",
-      choices: ["Neptune", "Venus", "Jupiter", "Mars"],
-      answer: "Jupiter",
-    },
-  ];
+  const areAllQuestionsAnswered =
+    answers.filter(Boolean).length === locQuestions.length;
 
-  let answers: Answers[] = [];
-
-  const getSelection = (
-    questionIndex: number,
-    optionIndex: number,
-    choice: string
-  ) => {
-    if (answers.length < 1) {
-      answers.push({ questionIndex, optionIndex, choice });
-    }
-    for (const i of answers) {
-      if (i.questionIndex === questionIndex) {
-        const filteredArr = answers.filter(
-          (i: Answers) => i.questionIndex !== questionIndex
-        );
-        filteredArr.push({ questionIndex, optionIndex, choice });
-        answers = [...filteredArr];
-      } else if (i.questionIndex !== questionIndex) {
-        answers.push({ questionIndex, optionIndex, choice });
-      }
-    }
+  const getChoice = (qId: any, qChoice: any) => {
+    setAnswers((currentAnswers) => {
+      const result = [...currentAnswers];
+      result[qId] = qChoice;
+      return result;
+    });
   };
 
   const getScore = () => {
-    for (const u of answers) {
-      for (const q of questions) {
-        if (u.questionIndex + 1 === q.id && u.choice === q.answer) {
-          score++;
-        }
+    locQuestions.forEach((q) => {
+      if (q.answer === answers[q.id]) {
+        score++;
       }
-    }
+    });
     return score;
   };
 
@@ -88,23 +81,20 @@ const Questions: React.FC = () => {
   };
 
   const updateUser = async (
-    username = "smithy@s.com",
+    username = "tester",
     lastCompletedSet = "1",
     lastCompletedTopic = "starter",
     pointsToAdd = score
   ) => {
     let result: object;
     const req = `users/update-user-stats`;
-    console.log("Updating user...");
     const body = {
       username,
       lastCompletedSet,
       lastCompletedTopic,
       pointsToAdd,
     };
-    console.log("body sending: ", body);
     result = await axios.post(`${APIConfig.url}/${req}`, body);
-    console.log("result: ", result);
   };
 
   return (
@@ -120,37 +110,31 @@ const Questions: React.FC = () => {
       <IonContent>
         <IonCard>
           <IonCardContent>
-            <form id="triviaForm">
-              <IonList>
-                {questions.map((q, questionIndex) => (
-                  <IonRadioGroup value="biff" key={q.id}>
-                    <IonListHeader>
-                      <IonLabel class="question">{q?.question}</IonLabel>
-                    </IonListHeader>
-                    {q.choices.map((choice, optionIndex) => (
-                      <IonItem key={choice[optionIndex]}>
-                        <IonLabel>{choice}</IonLabel>
-                        <IonRadio
-                          slot="start"
-                          value={choice}
-                          onClick={() =>
-                            getSelection(questionIndex, optionIndex, choice)
-                          }
-                        ></IonRadio>
-                      </IonItem>
-                    ))}
-                  </IonRadioGroup>
-                ))}
-              </IonList>
-              <IonItemDivider className="divider"></IonItemDivider>
-              <IonButton
-                expand="block"
-                onClick={submitAnswers}
-                routerLink="/score"
-              >
+            <IonList>
+              {questions.map((q, questionIndex) => (
+                <IonRadioGroup key={q.id}>
+                  <IonListHeader>
+                    <IonLabel className="question">{q?.question}</IonLabel>
+                  </IonListHeader>
+                  {q.choices.map((choice, optionIndex) => (
+                    <IonItem key={choice[optionIndex]}>
+                      <IonLabel>{choice}</IonLabel>
+                      <IonRadio
+                        slot="start"
+                        value={choice}
+                        onClick={() => getChoice(q.id, choice)}
+                      ></IonRadio>
+                    </IonItem>
+                  ))}
+                </IonRadioGroup>
+              ))}
+            </IonList>
+            <IonItemDivider className="divider"></IonItemDivider>
+            {areAllQuestionsAnswered ? (
+              <IonButton expand="block" onClick={() => submitAnswers()}>
                 SUBMIT ANSWERS
               </IonButton>
-            </form>
+            ) : null}
           </IonCardContent>
         </IonCard>
       </IonContent>
@@ -159,9 +143,3 @@ const Questions: React.FC = () => {
 };
 
 export default Questions;
-
-export interface Answers {
-  questionIndex: number;
-  optionIndex: number;
-  choice: string;
-}
