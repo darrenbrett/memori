@@ -21,7 +21,7 @@ import "./Auth.css";
 
 import { useForm, Controller } from "react-hook-form";
 
-const Auth: React.FC = () => {
+const Auth2: React.FC = () => {
   const { handleSubmit, control } = useForm({});
 
   let loading: boolean = false;
@@ -29,9 +29,7 @@ const Auth: React.FC = () => {
 
   const onLogin = (data: any) => {
     console.log("onLogin() firing: ", data);
-    if (data.email && data.password) {
-      history.push("/home");
-    }
+    history.push("/home");
   };
 
   const loadSpinner = () => {
@@ -135,4 +133,4 @@ const Auth: React.FC = () => {
   );
 };
 
-export default Auth;
+export default Auth2;

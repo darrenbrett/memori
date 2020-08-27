@@ -24,6 +24,7 @@ const resource = fetchProfileData();
 
 const Home: React.FC = () => {
   let user: User;
+
   const lowScoreMessage = () => {
     let lowScoreMessage = null;
     if (user.roundsCompleted > 0 && user.lastScore < 6) {

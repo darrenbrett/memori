@@ -21,7 +21,7 @@ import React, { useState } from "react";
 import "@ionic/react/css/core.css";
 import axios from "axios";
 import { useHistory } from "react-router";
-import { APIConfig } from "./../../../environments/environment";
+import { APIConfig } from "./../../../environments/environment.prod";
 
 const questions = [
   {
@@ -46,7 +46,7 @@ const questions = [
     choice: "",
   },
 ];
-const Questions = () => {
+const Questions: React.FC = () => {
   const [locQuestions, setQuestions] = useState(questions);
   const [answers, setAnswers] = useState<string[]>([]);
 
@@ -81,7 +81,7 @@ const Questions = () => {
   };
 
   const updateUser = async (
-    username = "tester",
+    username = "smithy@s.com",
     lastCompletedSet = "1",
     lastCompletedTopic = "starter",
     pointsToAdd = score
